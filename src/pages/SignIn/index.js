@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useAuth } from '../../hooks/auth';
+import { Link, useHistory } from 'react-router-dom';
 import api from '../../services/api';
 import Loading from '../../components/Loading';
 import { Container, Content, Form, FieldInput, Button } from './styles.js';
@@ -9,25 +10,23 @@ import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
 import logoHome from '../../assets/images/logo-home.png';
 
 const SignIn = () => {
+  const { signIn } = useAuth();
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [errorLogin, setErrorLogin] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [typeInput, setTypeInput] = useState('password');
+  const history = useHistory();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('/users/auth/sign_in', {
-        email: email,
-        password: password,
-      });
-      console.log(response);
+      signIn(email, password);
+      history.push('/home');
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
-
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
@@ -78,7 +77,7 @@ const SignIn = () => {
           <p>
             Lorem ipsum dolor sit amet, contetur adipiscing elit. Nunc accumsan.
           </p>
-          <Form action='' onSubmit={(e) => handleSubmit(e)}>
+          <Form onSubmit={(e) => handleSubmit(e)}>
             <FieldInput>
               <FiMail size={16} />
               <input

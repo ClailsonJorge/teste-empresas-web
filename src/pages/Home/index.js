@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useAuth } from '../../hooks/auth';
 import { FaSearch } from 'react-icons/fa';
 import { IoMdClose } from 'react-icons/io';
 import logoImg from '../../assets/images/logo-nav.png';
@@ -10,8 +11,11 @@ const Home = () => {
   const [errorSeach, setErrorSearch] = useState(false);
   const [text, setText] = useState('');
   const [companies, setCompanies] = useState([]);
+  const { user, headers } = useAuth();
+  console.log({ user, headers });
 
-  const handleSearchCompany = () => {
+  const handleSearchCompany = (e) => {
+    e.preventDefault();
     const enterprises = [
       {
         enterprise: {
@@ -44,11 +48,11 @@ const Home = () => {
       (e) => e.enterprise.enterprise_name.toLowerCase() === text.toLowerCase()
     );
 
-    console.log(company);
     if (company.length) {
       setCompanies(company);
       setErrorSearch(false);
     } else {
+      setCompanies([]);
       setErrorSearch(true);
     }
   };
@@ -68,18 +72,18 @@ const Home = () => {
 
   const loadSearchInput = () => (
     <div className='change-state'>
-      <button type='button' onClick={handleSearchCompany}>
-        <FaSearch size={24} />
-      </button>
-      <input
-        type='text'
-        placeholder='Pesquisar'
-        value={text}
-        onChange={(e) => handleTextInput(e.target.value)}
-      />
-      <button type='button' onClick={handleChangeHeader}>
-        <IoMdClose size={24} />
-      </button>
+      <form onSubmit={(e) => handleSearchCompany(e)}>
+        <FaSearch size={24} onClick={handleSearchCompany} />
+        <input
+          type='text'
+          placeholder='Pesquisar'
+          value={text}
+          onChange={(e) => handleTextInput(e.target.value)}
+        />
+        <button type='button' onClick={handleChangeHeader}>
+          <IoMdClose size={24} />
+        </button>
+      </form>
     </div>
   );
 
