@@ -16,11 +16,11 @@ export const Content = styled.div`
   height: 80%;
   margin: auto 0;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
 
   img {
-    width: 80%;
+    width: 60%;
   }
 
   h1 {
@@ -28,6 +28,8 @@ export const Content = styled.div`
     width: 50%;
     font-weight: bold;
     text-align: center;
+    margin: 40px 0;
+    text-transform: uppercase;
   }
 
   p {

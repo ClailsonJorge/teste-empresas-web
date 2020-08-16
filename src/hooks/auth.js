@@ -5,9 +5,16 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasLoginError, setHasLoginError] = useState(false);
   const [headers, setHeaders] = useState();
 
+  const clearLoginError = () => {
+    setHasLoginError(false);
+  };
+
   const signIn = async (email, password) => {
+    setIsLoading(true);
     try {
       const response = await api.post('/users/auth/sign_in', {
         email,
@@ -26,11 +33,23 @@ const AuthProvider = ({ children }) => {
         return config;
       });
     } catch (e) {
-      console.log(e);
+      console.error(e);
+      setHasLoginError(true);
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
-    <AuthContext.Provider value={{ signIn, user, headers }}>
+    <AuthContext.Provider
+      value={{
+        signIn,
+        user,
+        headers,
+        isLoading,
+        hasLoginError,
+        clearLoginError,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -1,69 +1,37 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../hooks/auth';
-import { Link } from 'react-router-dom';
 import Loading from '../../components/Loading';
-import { Container, Content, Form, FieldInput, Button } from './styles.js';
+import { Container, Content, FieldInput, Button, Form } from './styles.js';
 import { FiLock, FiMail } from 'react-icons/fi';
 import { MdError } from 'react-icons/md';
-import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
 import logoHome from '../../assets/images/logo-home.png';
 
+import IconEyes from '../../components/IconEyes';
+
 const SignIn = () => {
-  const { signIn } = useAuth();
+  const { signIn, isLoading, hasLoginError, clearLoginError } = useAuth();
+
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [errorLogin] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [typeInput, setTypeInput] = useState('password');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      setIsLoading(true);
-      await signIn(email, password);
-      setIsLoading(false);
-    } catch (e) {
-      console.error(e);
-    }
-  };
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+    await signIn(email, password);
   };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
+    clearLoginError();
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    clearLoginError();
   };
 
   const handleTypeInput = () => {
     typeInput === 'password' ? setTypeInput('text') : setTypeInput('password');
-  };
-
-  const renderEyes = () => {
-    if (password) {
-      if (typeInput === 'password') {
-        return (
-          <button
-            type='button'
-            className='button-eyes'
-            onClick={handleTypeInput}
-          >
-            <BsEyeFill />
-          </button>
-        );
-      } else {
-        return (
-          <button
-            type='button'
-            className='button-eyes'
-            onClick={handleTypeInput}
-          >
-            <BsEyeSlashFill />
-          </button>
-        );
-      }
-    } else {
-      return;
-    }
   };
 
   return (
@@ -72,7 +40,7 @@ const SignIn = () => {
       <Container>
         <Content>
           <img src={logoHome} alt='logo' />
-          <h1>BEM-VINDO AO EMPRESAS</h1>
+          <h1>Bem-vindo ao empresas</h1>
           <p>
             Lorem ipsum dolor sit amet, contetur adipiscing elit. Nunc accumsan.
           </p>
@@ -85,7 +53,7 @@ const SignIn = () => {
                 value={email}
                 onChange={(e) => handleEmailChange(e)}
               />
-              {errorLogin && <MdError size={16} />}
+              {hasLoginError && <MdError size={16} />}
             </FieldInput>
             <FieldInput>
               <FiLock size={16} />
@@ -95,16 +63,23 @@ const SignIn = () => {
                 value={password}
                 onChange={(e) => handlePasswordChange(e)}
               />
-              {errorLogin ? <MdError size={16} /> : renderEyes()}
+              {hasLoginError ? (
+                <MdError size={16} />
+              ) : (
+                <IconEyes
+                  typeInput={typeInput}
+                  toggleEyes={!!password}
+                  handleTypeInput={handleTypeInput}
+                />
+              )}
             </FieldInput>
-            {errorLogin && (
+            {hasLoginError && (
               <p>Credenciais informadas são inválidas, tente novamente.</p>
             )}
-            <Button primary={errorLogin} type='submit'>
+            <Button primary={hasLoginError} type='submit'>
               ENTRAR
             </Button>
           </Form>
-          <Link to='/description/Stark/1'>teste</Link>
         </Content>
       </Container>
     </>
