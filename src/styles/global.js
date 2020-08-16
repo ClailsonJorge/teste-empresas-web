@@ -1,5 +1,4 @@
 import { createGlobalStyle } from 'styled-components';
-import colors from '../utils/colors';
 
 export default createGlobalStyle`
 
@@ -17,7 +16,7 @@ html, body, #root {
 }
 body {
   -webkit-font-smoothing: antialiased;
-  background: ${colors.background};
+  background: #ebe9d7;
 }
 button, input, body{
   font: 14px 'Roboto', sans-serif;

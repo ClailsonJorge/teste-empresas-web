@@ -21,6 +21,10 @@ export const HeaderContainer = styled.section`
     css`
       background: url(${logoImg}) no-repeat center;
     `}
+
+  @media(max-width: 600px) {
+    padding: 0;
+  }
 `;
 
 export const HeaderSearch = styled.div`
@@ -59,6 +63,10 @@ export const HeaderSearch = styled.div`
       }
     }
   }
+
+  @media (max-width: 600px) {
+    margin: 0 10px;
+  }
 `;
 
 export const CloseIcon = styled(IoMdClose)`
@@ -71,6 +79,7 @@ export const CloseIcon = styled(IoMdClose)`
       display: none;
     `}
 `;
+
 export const Container = styled.main`
   display: flex;
   justify-content: center;
@@ -82,6 +91,7 @@ export const Container = styled.main`
     font-size: 24px;
   }
 `;
+
 export const Content = styled.section`
   height: 100%;
   width: 100%;
@@ -91,4 +101,9 @@ export const Content = styled.section`
   justify-content: flex-start;
   align-items: center;
   margin-top: 48px;
+  h3 {
+    color: #b5b4b4;
+    font-size: 24px;
+    margin-top: 70px;
+  }
 `;

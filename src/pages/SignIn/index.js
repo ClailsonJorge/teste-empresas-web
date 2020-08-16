@@ -10,8 +10,8 @@ import logoHome from '../../assets/images/logo-home.png';
 const SignIn = () => {
   const { signIn, isLoading, hasLoginError, clearLoginError } = useAuth();
 
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('12341234');
+  const [email, setEmail] = useState('testeapple@ioasys.com.br');
   const [typeInput, setTypeInput] = useState('password');
 
   const handleSubmit = async (e) => {

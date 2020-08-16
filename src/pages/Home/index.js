@@ -12,12 +12,16 @@ import {
 } from './styles';
 
 const Home = () => {
-  const [showSearchBar, setShowSearchBar] = useState(true);
+  const [showSearchBar, setShowSearchBar] = useState(false);
   const [inputText, setInputText] = useState('');
   const { filterEnterpriseByName, enterprises } = useEnterprise();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    searchActive();
+  };
+
+  const searchActive = () => {
     filterEnterpriseByName(inputText);
   };
 
@@ -29,7 +33,9 @@ const Home = () => {
             <FaSearch
               color={'#fff'}
               size={20}
-              onClick={() => setShowSearchBar(true)}
+              onClick={
+                showSearchBar ? searchActive : () => setShowSearchBar(true)
+              }
             />
             <form onSubmit={(e) => handleSubmit(e)}>
               <input
