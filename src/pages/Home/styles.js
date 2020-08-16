@@ -105,5 +105,11 @@ export const Content = styled.section`
     color: #b5b4b4;
     font-size: 24px;
     margin-top: 70px;
+    text-align: center;
+  }
+  @media (max-width: 600px) {
+    h3 {
+      font-size: 20px;
+    }
   }
 `;

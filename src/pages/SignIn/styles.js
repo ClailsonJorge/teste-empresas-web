@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { shade } from 'polished';
-import colors from '../../utils/colors';
 
 export const Container = styled.div`
   display: flex;
@@ -8,7 +7,7 @@ export const Container = styled.div`
   align-items: center;
   height: 100vh;
   width: 100vw;
-  background: ${colors.background};
+  background: #ebe9d7;
 `;
 
 export const Content = styled.div`
