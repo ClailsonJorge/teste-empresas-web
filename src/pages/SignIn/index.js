@@ -16,11 +16,11 @@ const SignIn = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [typeInput, setTypeInput] = useState('password');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setIsLoading(true);
-      signIn(email, password);
+      await signIn(email, password);
       setIsLoading(false);
     } catch (e) {
       console.error(e);

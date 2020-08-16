@@ -1,9 +1,10 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import api from '../services/api';
 
 const EnterpriseContext = createContext();
 
 const EnterpriseProvider = ({ children }) => {
+  const [enterprises, setEnterprises] = useState();
   const getAllEnterprises = async (email, password) => {
     try {
       const response = await api.get('/enterprises');
@@ -30,7 +31,7 @@ const EnterpriseProvider = ({ children }) => {
           enterprise_types,
         },
       });
-      return response.data;
+      setEnterprises(response.data);
     } catch (e) {
       console.log(e);
     }
@@ -38,7 +39,12 @@ const EnterpriseProvider = ({ children }) => {
 
   return (
     <EnterpriseContext.Provider
-      value={{ getAllEnterprises, getEnterpriseById, filterEnterpriseByName }}
+      value={{
+        getAllEnterprises,
+        getEnterpriseById,
+        enterprises,
+        filterEnterpriseByName,
+      }}
     >
       {children}
     </EnterpriseContext.Provider>
