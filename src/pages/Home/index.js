@@ -20,11 +20,12 @@ const Home = () => {
     e.preventDefault();
     filterEnterpriseByName(inputText);
   };
+
   return (
     <>
       <Header>
         <HeaderContainer hasBackground={!showSearchBar}>
-          <HeaderSearch activeSearch={showSearchBar}>
+          <HeaderSearch active={showSearchBar}>
             <FaSearch
               color={'#fff'}
               size={20}
@@ -39,7 +40,7 @@ const Home = () => {
               />
             </form>
             <CloseIcon
-              activeSearch={showSearchBar}
+              active={showSearchBar ? 1 : 0}
               color={'#fff'}
               size={30}
               onClick={() => setShowSearchBar(false)}
@@ -53,8 +54,13 @@ const Home = () => {
         ) : (
           <Content>
             {enterprises &&
+              enterprises.enterprises.length > 0 &&
               enterprises.enterprises.map((enterprise) => (
-                <EnterpriseCard enterprise={enterprise} />
+                <EnterpriseCard key={enterprise.id} enterprise={enterprise} />
+              ))}
+            {!enterprises ||
+              (enterprises.enterprises.length === 0 && (
+                <h3>Nenhuma empresa foi encontrada para a busca realizada.</h3>
               ))}
           </Content>
         )}

@@ -9,6 +9,7 @@ export const Container = styled.div`
   padding: 16px;
   background-color: #fff;
   margin: 8px 0;
+  cursor: pointer;
 
   div.image-container {
   }

@@ -30,7 +30,7 @@ export const HeaderSearch = styled.div`
   align-items: center;
   transition: width 0.6s, border 0.6s;
   ${(props) =>
-    props.activeSearch &&
+    props.active &&
     css`
       border-bottom: 1.5px solid #d8d8d8;
       width: 100%;
@@ -40,7 +40,7 @@ export const HeaderSearch = styled.div`
     flex: 1;
     transition: display 0.6s;
     ${(props) =>
-      !props.activeSearch &&
+      !props.active &&
       css`
         display: none;
       `}
@@ -66,7 +66,7 @@ export const CloseIcon = styled(IoMdClose)`
   size: 30;
   transition: display 0.6s;
   ${(props) =>
-    !props.activeSearch &&
+    !props.active &&
     css`
       display: none;
     `}

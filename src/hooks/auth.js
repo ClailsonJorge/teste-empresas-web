@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import api from '../services/api';
+import * as Yup from 'yup';
 
 const AuthContext = createContext();
 
@@ -16,6 +17,13 @@ const AuthProvider = ({ children }) => {
   const signIn = async (email, password) => {
     setIsLoading(true);
     try {
+      const schema = Yup.object().shape({
+        email: Yup.string().email().required(),
+        password: Yup.string().required().min(6),
+      });
+
+      await schema.validate({ email, password });
+
       const response = await api.post('/users/auth/sign_in', {
         email,
         password,

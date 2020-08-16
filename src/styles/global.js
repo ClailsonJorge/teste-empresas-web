@@ -2,8 +2,6 @@ import { createGlobalStyle } from 'styled-components';
 import colors from '../utils/colors';
 
 export default createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
 
 * {
   margin: 0;

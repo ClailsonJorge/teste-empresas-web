@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../hooks/auth';
 import Loading from '../../components/Loading';
+import IconEyes from '../../components/IconEyes';
 import { Container, Content, FieldInput, Button, Form } from './styles.js';
 import { FiLock, FiMail } from 'react-icons/fi';
 import { MdError } from 'react-icons/md';
 import logoHome from '../../assets/images/logo-home.png';
-
-import IconEyes from '../../components/IconEyes';
 
 const SignIn = () => {
   const { signIn, isLoading, hasLoginError, clearLoginError } = useAuth();
