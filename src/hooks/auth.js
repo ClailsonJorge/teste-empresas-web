@@ -1,11 +1,12 @@
 import React, { createContext, useContext, useState } from 'react';
 import api from '../services/api';
 
-const AuthContext = createContext({});
+const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
   const [headers, setHeaders] = useState();
+
   const signIn = async (email, password) => {
     try {
       const response = await api.post('/users/auth/sign_in', {
@@ -18,11 +19,16 @@ const AuthProvider = ({ children }) => {
         client: response.headers.client,
         uid: response.headers.uid,
       });
+      api.interceptors.request.use((config) => {
+        config.headers['access-token'] = response.headers['access-token'];
+        config.headers.client = response.headers.client;
+        config.headers.uid = response.headers.uid;
+        return config;
+      });
     } catch (e) {
       console.log(e);
     }
   };
-  console.log({ user, headers });
   return (
     <AuthContext.Provider value={{ signIn, user, headers }}>
       {children}

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../hooks/auth';
-import { Link, useHistory } from 'react-router-dom';
-import api from '../../services/api';
+import { Link } from 'react-router-dom';
 import Loading from '../../components/Loading';
 import { Container, Content, Form, FieldInput, Button } from './styles.js';
 import { FiLock, FiMail } from 'react-icons/fi';
@@ -13,16 +12,16 @@ const SignIn = () => {
   const { signIn } = useAuth();
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [errorLogin, setErrorLogin] = useState(false);
+  const [errorLogin] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [typeInput, setTypeInput] = useState('password');
-  const history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
+      setIsLoading(true);
       signIn(email, password);
-      history.push('/home');
+      setIsLoading(false);
     } catch (e) {
       console.error(e);
     }

@@ -1,8 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import SignIn from './pages/SignIn';
-import Home from './pages/Home';
-import Description from './pages/Description';
+
+import SignIn from '../pages/SignIn';
+import Home from '../pages/Home';
+import Description from '../pages/Description';
 
 const Routes = () => {
   return (
